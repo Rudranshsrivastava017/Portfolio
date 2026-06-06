@@ -17,9 +17,14 @@
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
-<!-- Grid Background -->
+<!-- Grid Background & Animated Blur Mesh -->
 <div class="grid-bg"></div>
 <div class="noise"></div>
+<div class="blob-mesh">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
 
 <!-- Loading Screen -->
 <div id="loader">
@@ -59,8 +64,7 @@
     </div>
   </div>
 </nav>
-
-<!-- ===== HERO ===== -->
+<main id="main">
 <section id="hero">
   <div class="hero-glow"></div>
   <div class="hero-glow2"></div>
@@ -295,6 +299,38 @@
           <div style="font-size:0.72rem;color:var(--accent);font-family:'Space Mono',monospace;margin-bottom:6px;">💡 HACKATHON PROJECT</div>
           <div style="font-size:0.82rem;color:var(--text2);">Built and presented at <strong style="color:var(--text)">HackDiwas 3.0</strong> — Grand Finale, United University &amp; IEEE · April 2026</div>
         </div>
+      <div class="project-card reveal reveal-delay-3">
+        <div class="project-header">
+          <div>
+            <div style="font-size:0.72rem;color:var(--accent);font-family:'Space Mono',monospace;letter-spacing:0.1em;margin-bottom:8px;">FRONTEND PROJECT</div>
+            <div class="project-title">Advanced Calculator</div>
+            <div class="project-sub">Fast & Intuitive Arithmetic Operations</div>
+          </div>
+          <div class="project-icon-big">🧮</div>
+        </div>
+        <div class="project-body">
+          <p class="project-problem">
+            <strong>Problem it solves:</strong> A modern, responsive calculator application built with vanilla JavaScript. Provides a smooth user experience with real-time expression evaluation, error handling, and an intuitive interface. Perfect for quick calculations with an aesthetically pleasing design powered by CSS animations and glassmorphism effects.
+          </p>
+          <div class="tech-stack">
+            <span class="tech-tag">HTML5</span>
+            <span class="tech-tag">CSS3</span>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">DOM Manipulation</span>
+            <span class="tech-tag">Animations</span>
+          </div>
+          <div class="project-features">
+            <div class="feature-item"><i class="fas fa-check-circle"></i> Basic & advanced arithmetic operations</div>
+            <div class="feature-item"><i class="fas fa-check-circle"></i> Real-time expression display</div>
+            <div class="feature-item"><i class="fas fa-check-circle"></i> Error handling &amp; validation</div>
+            <div class="feature-item"><i class="fas fa-check-circle"></i> Smooth animations &amp; transitions</div>
+            <div class="feature-item"><i class="fas fa-check-circle"></i> Fully responsive design</div>
+            <div class="feature-item"><i class="fas fa-check-circle"></i> Clean &amp; modern UI</div>
+          </div>
+          <div style="margin-top:24px;">
+            <a href="../calculator/index.html" class="btn-secondary" style="display:inline-flex;gap:8px;text-decoration:none;"><i class="fas fa-calculator"></i> Try Calculator</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -402,9 +438,11 @@
 </section>
 
 <!-- Footer -->
+ </main>
+
 <footer>
   <div class="footer-brand">RS.DEV</div>
-  <div class="footer-text">© 2026 Rudransh Srivastava · Built with ❤️ &amp; lots of ☕</div>
+  <div class="footer-text">© 2026 Rudransh Srivastava </div>
   <div class="footer-socials">
     <a class="footer-social" href="mailto:srivastavarudransh27@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
     <a class="footer-social" href="https://github.com/Rudranshsrivastava017" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
