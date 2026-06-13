@@ -99,18 +99,43 @@ function typeEffect(){
 setTimeout(typeEffect,2500);
 
 // ===== CONTACT FORM =====
+emailjs.init('YOUR_PUBLIC_KEY'); // replace with your EmailJS public key
 function submitForm(){
   const name=document.getElementById('cf-name').value.trim();
   const email=document.getElementById('cf-email').value.trim();
   const msg=document.getElementById('cf-msg').value.trim();
   const status=document.getElementById('formStatus');
-  if(!name||!email||!msg){status.textContent='⚠ Please fill in all fields.';status.style.color='var(--accent3)';return;}
-  if(!/^[^@]+@[^@]+\.[^@]+$/.test(email)){status.textContent='⚠ Please enter a valid email.';status.style.color='var(--accent3)';return;}
-  status.textContent='✓ Message sent! I will get back to you soon.';status.style.color='var(--accent)';
-  document.getElementById('cf-name').value='';
-  document.getElementById('cf-email').value='';
-  document.getElementById('cf-msg').value='';
-  setTimeout(()=>status.textContent='',5000);
+  if(!name||!email||!msg){
+    status.textContent='⚠ Please fill in all fields.';
+    status.style.color='var(--accent3)';
+    return;
+  }
+  if(!/^[^@]+@[^@]+\.[^@]+$/.test(email)){
+    status.textContent='⚠ Please enter a valid email.';
+    status.style.color='var(--accent3)';
+    return;
+  }
+  status.textContent='⏳ Sending message...';
+  status.style.color='var(--accent)';
+  emailjs.send('YOUR_SERVICE_ID','YOUR_TEMPLATE_ID',{
+    from_name: name,
+    from_email: email,
+    message: msg,
+    reply_to: email
+  })
+  .then(() => {
+    status.textContent='✓ Message sent! I will get back to you soon.';
+    status.style.color='var(--accent)';
+    document.getElementById('cf-name').value='';
+    document.getElementById('cf-email').value='';
+    document.getElementById('cf-msg').value='';
+    setTimeout(()=>status.textContent='',5000);
+  })
+  .catch((error) => {
+    console.error('EmailJS error:', error);
+    status.textContent='⚠ Something went wrong. Please try again later.';
+    status.style.color='var(--accent3)';
+  });
 }
 
 // ===== RESUME DOWNLOAD =====
