@@ -99,11 +99,11 @@ function typeEffect(){
 setTimeout(typeEffect,2500);
 
 // ===== CONTACT FORM =====
-emailjs.init('YOUR_PUBLIC_KEY'); // replace with your EmailJS public key
-function submitForm(){
+async function submitForm(){
   const name=document.getElementById('cf-name').value.trim();
   const email=document.getElementById('cf-email').value.trim();
   const msg=document.getElementById('cf-msg').value.trim();
+  const submitButton=document.querySelector('.contact-form button');
   const status=document.getElementById('formStatus');
   if(!name||!email||!msg){
     status.textContent='⚠ Please fill in all fields.';
@@ -117,25 +117,30 @@ function submitForm(){
   }
   status.textContent='⏳ Sending message...';
   status.style.color='var(--accent)';
-  emailjs.send('YOUR_SERVICE_ID','YOUR_TEMPLATE_ID',{
-    from_name: name,
-    from_email: email,
-    message: msg,
-    reply_to: email
-  })
-  .then(() => {
+  submitButton.disabled=true;
+
+  try {
+    const response=await fetch('/api/contact',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({name,email,message:msg})
+    });
+    const result=await response.json();
+
+    if(!response.ok) throw new Error(result.message || 'Request failed.');
     status.textContent='✓ Message sent! I will get back to you soon.';
     status.style.color='var(--accent)';
     document.getElementById('cf-name').value='';
     document.getElementById('cf-email').value='';
     document.getElementById('cf-msg').value='';
     setTimeout(()=>status.textContent='',5000);
-  })
-  .catch((error) => {
-    console.error('EmailJS error:', error);
-    status.textContent='⚠ Something went wrong. Please try again later.';
+  } catch(error) {
+    console.error('Contact form error:', error);
+    status.textContent='⚠ '+error.message;
     status.style.color='var(--accent3)';
-  });
+  } finally {
+    submitButton.disabled=false;
+  }
 }
 
 // ===== RESUME DOWNLOAD =====
