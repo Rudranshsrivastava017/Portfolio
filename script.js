@@ -99,7 +99,9 @@ function typeEffect(){
 setTimeout(typeEffect,2500);
 
 // ===== CONTACT FORM =====
-emailjs.init('YOUR_PUBLIC_KEY'); // replace with your EmailJS public key
+emailjs.init({
+  publicKey: "MweuRGQ9nnuqTJ_4l",
+});
 function submitForm(){
   const name=document.getElementById('cf-name').value.trim();
   const email=document.getElementById('cf-email').value.trim();
@@ -117,11 +119,13 @@ function submitForm(){
   }
   status.textContent='⏳ Sending message...';
   status.style.color='var(--accent)';
-  emailjs.send('YOUR_SERVICE_ID','YOUR_TEMPLATE_ID',{
+  emailjs.send('service_yysxfii','template_efooh6a',{
     from_name: name,
     from_email: email,
     message: msg,
     reply_to: email
+  }, {
+    publicKey: 'MweuRGQ9nnuqTJ_4l',
   })
   .then(() => {
     status.textContent='✓ Message sent! I will get back to you soon.';
@@ -133,7 +137,8 @@ function submitForm(){
   })
   .catch((error) => {
     console.error('EmailJS error:', error);
-    status.textContent='⚠ Something went wrong. Please try again later.';
+    const msg = error?.text || error?.message || 'Something went wrong. Please try again later.';
+    status.textContent='⚠ ' + msg;
     status.style.color='var(--accent3)';
   });
 }
