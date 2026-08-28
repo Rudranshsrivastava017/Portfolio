@@ -146,7 +146,9 @@ function submitForm(){
 // ===== RESUME DOWNLOAD =====
 function downloadResume(){
   const a=document.createElement('a');
-  a.href='mailto:srivastavarudransh27@gmail.com?subject=Resume Request';
+  a.href='resume.pdf';
+  a.download='Rudransh_Srivastava_Resume.pdf';
+  a.target='_blank';
   a.click();
 }
 
