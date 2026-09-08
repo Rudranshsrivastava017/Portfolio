@@ -13,8 +13,6 @@
 </head>
 <body>
 
-
-
 <!-- Grid Background & Animated Blur Mesh -->
 <div class="grid-bg"></div>
 <div class="noise"></div>
@@ -414,21 +412,53 @@
       </div>
       <div class="contact-form reveal reveal-delay-3">
         <h3>Send a Message</h3>
-        <div class="form-group">
-          <label>YOUR NAME</label>
-          <input type="text" id="cf-name" placeholder="e.g.Your name"/>
+
+        <!-- Step 1: Contact Details -->
+        <div id="cf-step-details">
+          <div class="form-group">
+            <label>YOUR NAME</label>
+            <input type="text" id="cf-name" placeholder="e.g. Your name" autocomplete="name"/>
+          </div>
+          <div class="form-group">
+            <label>EMAIL ADDRESS</label>
+            <input type="email" id="cf-email" placeholder="xyz@example.com" autocomplete="email"/>
+          </div>
+          <div class="form-group">
+            <label>MESSAGE</label>
+            <textarea id="cf-msg" rows="4" placeholder="Tell me about your project or opportunity..."></textarea>
+          </div>
+          <button class="btn-primary" id="cf-submit-btn" style="width:100%;justify-content:center;" onclick="requestOtp()">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
         </div>
-        <div class="form-group">
-          <label>EMAIL ADDRESS</label>
-          <input type="email" id="cf-email" placeholder="xyz@example.com"/>
+
+        <!-- Step 2: OTP Verification -->
+        <div id="cf-step-otp" style="display:none;">
+          <div class="otp-notice">
+            A 6-digit verification code was sent to <strong id="cf-target-email"></strong>. Enter the code below to verify mailbox access and send your message.
+          </div>
+          <div class="form-group">
+            <label>6-DIGIT VERIFICATION CODE</label>
+            <input type="text" id="cf-otp" maxlength="6" inputmode="numeric" pattern="[0-9]*" placeholder="• • • • • •" autocomplete="one-time-code" class="otp-input"/>
+          </div>
+          <div class="otp-actions">
+            <button class="btn-primary" id="cf-verify-btn" style="width:100%;justify-content:center;" onclick="verifyAndSubmit()">
+              <i class="fas fa-check-circle"></i> Verify &amp; Send Message
+            </button>
+            <div class="otp-secondary-actions">
+              <button type="button" class="btn-secondary" id="cf-resend-btn" onclick="resendOtp()">
+                <i class="fas fa-redo"></i> Resend Code <span id="cf-cooldown"></span>
+              </button>
+              <button type="button" class="btn-secondary" id="cf-back-btn" onclick="backToDetails()">
+                <i class="fas fa-edit"></i> Edit Details
+              </button>
+            </div>
+          </div>
+          <div class="otp-disclaimer">
+            <i class="fas fa-info-circle"></i> This OTP verifies access to this email mailbox at submission time.
+          </div>
         </div>
-        <div class="form-group">
-          <label>MESSAGE</label>
-          <textarea id="cf-msg" rows="4" placeholder="Tell me about your project or opportunity..."></textarea>
-        </div>
-        <button class="btn-primary" style="width:100%;justify-content:center;" onclick="submitForm()">
-          <i class="fas fa-paper-plane"></i> Send Message
-        </button>
+
         <div class="form-status" id="formStatus"></div>
       </div>
     </div>
@@ -448,8 +478,7 @@
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script src="script.js"></script>
+<script src="script.js?v=2.4"></script>
 
 </body>
 </html>
