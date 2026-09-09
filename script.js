@@ -167,10 +167,19 @@ function getApiUrl(endpoint) {
     window.location.protocol === 'file:'
   ) {
     if (window.location.port !== '3001') {
-      return `http://localhost:3001${endpoint}`;
+      const host = window.location.hostname === '127.0.0.1' ? '127.0.0.1' : 'localhost';
+      return `http://${host}:3001${endpoint}`;
     }
   }
   return endpoint;
+}
+
+function formatFetchError(err) {
+  const msg = err?.message || '';
+  if (err?.name === 'TypeError' || msg.toLowerCase().includes('fetch') || msg.toLowerCase().includes('network')) {
+    return 'Backend server is not running. Run "npm run dev" in terminal (port 3001) or open http://localhost:3001.';
+  }
+  return msg || 'Request failed. Please try again.';
 }
 
 // Step 1: Request OTP
@@ -227,7 +236,7 @@ async function requestOtp() {
     }, 6000);
   } catch (err) {
     console.error('send-otp error:', err);
-    status.textContent = '⚠ ' + err.message;
+    status.textContent = '⚠ ' + formatFetchError(err);
     status.style.color = 'var(--accent3)';
   } finally {
     if (submitBtn) submitBtn.disabled = false;
@@ -301,7 +310,7 @@ async function verifyAndSubmit() {
     }, 6000);
   } catch (err) {
     console.error('verify-otp error:', err);
-    status.textContent = '⚠ ' + err.message;
+    status.textContent = '⚠ ' + formatFetchError(err);
     status.style.color = 'var(--accent3)';
   } finally {
     if (verifyBtn) verifyBtn.disabled = false;
@@ -347,7 +356,7 @@ async function resendOtp() {
     }, 4000);
   } catch (err) {
     console.error('resend-otp error:', err);
-    status.textContent = '⚠ ' + err.message;
+    status.textContent = '⚠ ' + formatFetchError(err);
     status.style.color = 'var(--accent3)';
   }
 }

@@ -10,11 +10,17 @@ function setCors(req, res) {
     ? process.env.ALLOWED_ORIGINS.split(',').map(o => o.trim())
     : ['*'];
 
-  if (allowed.includes('*') || (origin && allowed.includes(origin))) {
+  const isLocalOrigin = origin && (
+    origin.startsWith('http://localhost:') ||
+    origin.startsWith('http://127.0.0.1:') ||
+    origin === 'null'
+  );
+
+  if (allowed.includes('*') || isLocalOrigin || (origin && allowed.includes(origin))) {
     res.setHeader('Access-Control-Allow-Origin', origin || '*');
   }
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 }
 
 export default async function handler(req, res) {
