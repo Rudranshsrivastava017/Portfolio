@@ -546,6 +546,10 @@ section{
   backdrop-filter:blur(16px);
   transition:all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   max-width:100%;
+  margin-bottom:32px;
+}
+.project-card:last-child{
+  margin-bottom:0;
 }
 .project-card:hover{
   border-color:var(--accent);
@@ -587,13 +591,13 @@ section{
 }
 .tech-tag:hover{background:rgba(0,245,255,0.1);border-color:var(--accent);}
 .project-features{
-  display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  display:grid;grid-template-columns:1fr 1fr;gap:14px;
 }
 .feature-item{
-  display:flex;align-items:center;gap:8px;
-  font-size:0.82rem;color:var(--text2);
+  display:flex;align-items:flex-start;gap:8px;
+  font-size:0.82rem;color:var(--text2);line-height:1.5;
 }
-.feature-item i{color:var(--accent);font-size:0.75rem;}
+.feature-item i{color:var(--accent);font-size:0.75rem;margin-top:3px;flex-shrink:0;}
 
 /* ===== ACHIEVEMENTS ===== */
 #achievements{}
